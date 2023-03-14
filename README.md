@@ -13,7 +13,7 @@ pinia.use(piniaPluginPersist());
 // or
 pinia.use(
   piniaPluginPersist({
-    key: "xxx", // like "xxx" + "-" + store.$id, global has $id end
+    key: "xxx", // like "xxx" + store.$id, global has $id end
     setter(key, paths, state) {
       // content like...
       JSON.stringify(key, pick(state, paths));
