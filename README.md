@@ -1,22 +1,82 @@
-# 常用utils
-- compressPicture: 图片压缩
-- createEventBus: 创建一个事件总线
-- debounce: 防抖
-- throttle: 节流
-- exitFullscreen: 退出全屏
-- filePicker: 选择文件
-- dateFormat: 日期格式化
-- timeFormat: 时间格式化
-- merge: 合并对象
-- omit: 选择对象属性，组合没有选择的返回
-- pick: 选择对象属性，组合并返回
-- Progress: 头部进度条
-- readAs: 读取文件
-- saveAs: 保存文件
-- download: 保存文件
-- sleep: 睡眠
-- to: 返回promise的正确和错误结果的组合
-- toTypeString：返回参数的类型 [object xxx]
-- toRawString：返回参数的类型，只返回类型部分 [object xxx] - xxx
-- is：判断数据类型
-- trying: 以promise运行传入的参数函数
+# @wsvaio/pinia-plugin-persist
+
+pinia 持久化辅助插件
+
+## 快速使用
+
+```typescript
+import { createPinia } from "pinia";
+import piniaPluginPersist from "@wsvaio/pinia-plugin-persist";
+
+const pinia = createPinia();
+pinia.use(piniaPluginPersist());
+// or
+pinia.use(
+  piniaPluginPersist({
+    key: "xxx", // like "xxx" + "-" + store.$id, global has $id end
+    setter(key, paths, state) {
+      // content like...
+      JSON.stringify(key, pick(state, paths));
+    },
+    getter(key) {
+      // content like...
+      return JSON.parse(localStore.getItem(key));
+    },
+  })
+);
+```
+
+```typescript
+...
+
+defineStore("xxx", {
+
+  ...
+  persist: {
+    key: "xxx", // global has $id end, overwrite global, just "xxx", no $id end;
+    includes: [...],
+    excludes: [...],
+    // paths = includes.filter(item => !excludes.includes(item));
+    setter(key, paths, state) {
+      ...
+    },
+    getter(key) {
+      ...
+    }
+  }
+
+});
+...
+
+```
+
+## uniapp
+
+```typescript
+import { createPinia } from "pinia";
+import piniaPluginPersist from "@wsvaio/pinia-plugin-persist";
+
+const pinia = createPinia();
+pinia.use(
+  piniaPluginPersist({
+    setter(key, paths, state) {
+      uni.setStorageSync(key, pick(state, paths));
+    },
+    getter(key) {
+      return uni.getStorageSync(key);
+    },
+  })
+);
+```
+
+## pick function
+``` typescript
+const pick = <T extends Object, K extends keyof T>(obj: T, keys: K[]) => {
+  const result = <{ [P in K]: T[P] }>{};
+  for (const key of keys) {
+    result[key] = obj[key];
+  }
+  return result;
+};
+
+```
