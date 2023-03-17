@@ -1,6 +1,6 @@
 {
   "name": "@wsvaio/pinia-plugin-persist",
-  "version": "0.0.3",
+  "version": "0.0.4-0",
   "description": "pinia持久化插件，可兼容uniapp",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
