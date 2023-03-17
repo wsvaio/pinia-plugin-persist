@@ -1,7 +1,7 @@
 {
   "name": "@wsvaio/pinia-plugin-persist",
   "version": "0.0.3",
-  "description": "pinia持久化插件，可配置set和get",
+  "description": "pinia持久化插件，可兼容uniapp",
   "author": "wsvaio <wsvaio@qq.com>",
   "license": "MIT",
   "homepage": "https://github.com/wsvaio/pinia-plugin-persist",
@@ -11,6 +11,8 @@
   },
   "keywords": [
     "wsvaio",
+    "uniapp",
+    "persist",
     "pinia",
     "pinia-plugin",
     "pinia-plugin-persist"
