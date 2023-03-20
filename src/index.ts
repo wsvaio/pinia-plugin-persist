@@ -1,30 +1,30 @@
-import { PiniaPluginContext, StateTree } from "pinia";
+import type { PiniaPlugin, StateTree } from "pinia";
 import { pick } from "@wsvaio/utils";
-export type PersistOption<S extends StateTree = StateTree> = {
+export interface PersistOption<S extends StateTree = StateTree> {
   key?: string;
   includes?: string[];
   excludes?: string[];
   setter?: (key: string, value: Partial<S>, store: S) => void;
   getter?: (key: string, store: S) => S | undefined | null | "";
-};
+}
 
 declare module "pinia" {
-  export interface DefineStoreOptionsBase<S, Store> {
+  interface DefineStoreOptionsBase<S extends StateTree, Store> {
     persist?: PersistOption<S>[] | PersistOption<S> | boolean;
   }
 }
 
 export default (
-    {
-      key: KEY = "",
-      setter: SETTER = (key, value) => localStorage.setItem(key, JSON.stringify(value)),
-      getter: GETTER = key => JSON.parse(String(localStorage.getItem(key))),
-    } = {} as Pick<PersistOption, "key" | "setter" | "getter">
-  ) =>
-  ({ options: { persist }, store }: PiniaPluginContext) => {
+  {
+    key: KEY = "",
+    setter: SETTER = (key, value) => localStorage.setItem(key, JSON.stringify(value)),
+    getter: GETTER = key => JSON.parse(String(localStorage.getItem(key))),
+  } = {} as Pick<PersistOption, "key" | "setter" | "getter">,
+): PiniaPlugin =>
+  ({ options: { persist }, store }) => {
     if (!persist) return;
     if (persist === true) persist = {};
-    if (!Array.isArray(persist)) (persist = [persist]);
+    if (!Array.isArray(persist)) persist = [persist];
     persist.forEach(
       ({
         key = `${KEY}${store.$id}`,
@@ -39,6 +39,6 @@ export default (
           ? store.$patch(pick(persisted, paths), store)
           : setter(key, pick(store.$state, paths), store);
         store.$subscribe(() => setter(key, pick(store.$state, paths), store));
-      }
+      },
     );
   };

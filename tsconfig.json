@@ -2,18 +2,18 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "moduleResolution": "node",
+    
     "esModuleInterop": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "noImplicitAny": false
 
-  },
-  "exclude": ["dist"]
+    "noImplicitAny": false,
+    "baseUrl": "./",
+    "paths": {
+      "@wsvaio/pinia-plugin-persist": ["src/index.ts"],
+      "@/*": [
+        "playground/*"
+      ],
+    }
+  }
 }
