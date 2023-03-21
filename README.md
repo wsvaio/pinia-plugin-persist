@@ -1,6 +1,12 @@
+<center>
+
 # @wsvaio/pinia-plugin-persist
 
 pinia 持久化辅助插件
+
+[![Size](https://img.shields.io/bundlephobia/minzip/@wsvaio/pinia-plugin-persist/latest)](https://www.npmjs.com/package/@wsvaio/pinia-plugin-persist) [![Version](https://img.shields.io/npm/v/@wsvaio/pinia-plugin-persist)](https://www.npmjs.com/package/@wsvaio/pinia-plugin-persist) [![Languages](https://img.shields.io/github/languages/top/wsvaio/pinia-plugin-persist)](https://www.npmjs.com/package/@wsvaio/pinia-plugin-persist) [![License](https://img.shields.io/npm/l/@wsvaio/pinia-plugin-persist)](https://www.npmjs.com/package/@wsvaio/pinia-plugin-persist) [![Star](https://img.shields.io/github/stars/wsvaio/pinia-plugin-persist)](https://github.com/wsvaio/pinia-plugin-persist) [![Download](https://img.shields.io/npm/dm/@wsvaio/pinia-plugin-persist)](https://www.npmjs.com/package/@wsvaio/pinia-plugin-persist)
+
+</center>
 
 ## 快速使用
 
@@ -27,21 +33,22 @@ defineStore("xxx", {
 在 pinia 注册插件时只有 key、getter、setter 的配置  
 在每个 defineStore 中的配置有 key、getter、setter、incldue、exclude 配置，或是一个布尔值，用于快速启用
 
-全局配置会作为局部配置的默认值
-
-**_全局的 key 配置，为了保持唯一性，会在结尾追加对应 store 的$id 值_**  
-**_局部的 key 配置，写了什么就是什么，所以要注意保持唯一性_**
+**_全局配置会作为局部配置的默认值_**  
+**_局部配置可以是一个布尔值、一个对象，也可以为一个数组！_**
 
 ### key
 
-定义持久化的 key 名
+定义持久化的 key 名，需要确保唯一性  
+默认为 publicKey + & + store.$id + & + index
 
 ### getter & setter
 
-定义如何获取和设置持久化，默认设置至 localStorage
+定义如何获取和设置持久化，默认设置至 localStorage  
+可以通过 this 访问 store 实例
 
 ```typescript
 setter(key, value) {
+  console.log(this); // 访问store
   localStorage.setItem(key, JSON.stringify(value));
 },
 getter(key) {
