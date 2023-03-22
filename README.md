@@ -61,6 +61,11 @@ getter(key) {
 定义要持久化的属性名，include 包含、exclude 排除，优先级：exclude > include  
 默认 include 包含所有，exclude 为空
 
+```typescript
+includes: ['a', 'b', 'c.a', 'c.b'],
+excludes: ['a', 'b', 'c.a', 'c.b'],
+```
+
 ## UNIAPP
 
 通过设置全局的 getter 和 setter，可以兼容微信小程序

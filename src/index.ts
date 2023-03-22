@@ -1,32 +1,17 @@
-import type { PiniaPlugin, StateTree, Store } from "pinia";
-import { pick } from "@wsvaio/utils";
-export interface PersistOption<S = StateTree, SS = Store> {
-  key?: string;
-  includes?: string[];
-  excludes?: string[];
-  setter?: (this: SS, key: string, value: Partial<S>) => void;
-  getter?: (this: SS, key: string) => S | undefined | null | "";
-}
-
-declare module "pinia" {
-  interface DefineStoreOptionsBase<S, Store> {
-    persist?: PersistOption<S, Store>[] | PersistOption<S, Store> | boolean;
-  }
-
-  interface PiniaCustomProperties {
-    $hydrate: () => void;
-    $persist: () => void;
-  }
-}
+import type { PiniaPlugin } from "pinia";
+import { deepPick } from "./deepPick";
+import type { PersistOption } from "./types";
 
 export default (
   {
     key: KEY = "pinia",
     setter: SETTER = (key, value) => localStorage.setItem(key, JSON.stringify(value)),
-    getter: GETTER = key => JSON.parse(String(localStorage.getItem(key))) as PersistOption["getter"],
+    getter: GETTER = key =>
+      JSON.parse(String(localStorage.getItem(key))) as PersistOption["getter"],
   } = {} as Pick<PersistOption, "key" | "setter" | "getter">,
 ): PiniaPlugin =>
   ({ options, store }) => {
+    console.log(options);
     const persistForEach = (
       callback: (options: {
         key: string;
@@ -62,13 +47,13 @@ export default (
       persistForEach(({ key, paths, getter, setter }) => {
         const persisted = getter.call(store, key);
         persisted
-          ? store.$patch(pick(persisted, paths))
-          : setter.call(store, key, pick(store.$state, paths));
+          ? store.$patch(deepPick(persisted, paths))
+          : setter.call(store, key, deepPick(store.$state, paths));
       });
     store.$persist = () =>
-      persistForEach(({ key, paths, setter }) => {
-        setter.call(store, key, pick(store.$state, paths));
-      });
+      persistForEach(({ key, paths, setter }) =>
+        setter.call(store, key, deepPick(store.$state, paths)),
+      );
 
     store.$hydrate();
     store.$subscribe(store.$persist);
