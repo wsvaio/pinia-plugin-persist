@@ -11,7 +11,6 @@ export default (
   } = {} as Pick<PersistOption, "key" | "setter" | "getter">,
 ): PiniaPlugin =>
   ({ options, store }) => {
-    console.log(options);
     const persistForEach = (
       callback: (options: {
         key: string;
