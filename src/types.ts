@@ -4,7 +4,7 @@ export interface PersistOption<S extends StateTree = StateTree, SS = Store> {
   includes?: string[];
   excludes?: string[];
   setter?: (this: SS, key: string, value: Partial<S>) => void;
-  getter?: (this: SS, key: string) => S | undefined | null | "";
+  getter?: (this: SS, key: string) => Partial<S> | undefined | null | "";
 }
 
 declare module "pinia" {
