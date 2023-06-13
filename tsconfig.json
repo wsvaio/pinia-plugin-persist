@@ -4,21 +4,16 @@
     "module": "ESNext",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "node",
-    
+
     "esModuleInterop": true,
-    "keyofStringsOnly": true,
+    // "keyofStringsOnly": true,
 
     "noImplicitAny": false,
     "baseUrl": "./",
     "paths": {
       "@wsvaio/pinia-plugin-persist": ["src/index.ts"],
-      "@/*": [
-        "playground/*"
-      ],
+      "@/*": ["playground/*"]
     }
   },
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "exclude": ["dist", "node_modules"]
 }
