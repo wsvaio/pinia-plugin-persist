@@ -11,10 +11,11 @@ export default defineStore("main", {
       },
       asjdf: [123, 123, 5435, 643],
     },
+    asjdf: [123, 123, 5435, 643],
   }),
   persist: [
     {
-      includes: ["count", "cba.asjdf.1"],
+      includes: ["asjdf", "sdf", "cba.asjdf.1"],
       setter(key, value) {
         console.log(this);
 

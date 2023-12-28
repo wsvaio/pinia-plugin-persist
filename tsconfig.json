@@ -13,7 +13,13 @@
     "paths": {
       "@wsvaio/pinia-plugin-persist": ["src/index.ts"],
       "@/*": ["playground/*"]
-    }
+    },
+
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
   },
   "exclude": ["dist", "node_modules"]
 }

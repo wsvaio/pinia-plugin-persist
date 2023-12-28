@@ -30,20 +30,20 @@ defineStore("xxx", {
 
 ### 全局与局部配置
 
-在 pinia 注册插件时只有 key、getter、setter 的配置  
+在 pinia 注册插件时只有 key、getter、setter 的配置
 在每个 defineStore 中的配置有 key、getter、setter、incldue、exclude 配置，或是一个布尔值，用于快速启用
 
-**_全局配置会作为局部配置的默认值_**  
+**_全局配置会作为局部配置的默认值_**
 **_局部配置可以是一个布尔值、一个对象，也可以为一个数组！_**
 
 ### key
 
-定义持久化的 key 名，需要确保唯一性  
+定义持久化的 key 名，需要确保唯一性
 默认为 publicKey + & + store.$id + & + index
 
 ### getter & setter
 
-定义如何获取和设置持久化，默认设置至 localStorage  
+定义如何获取和设置持久化，默认设置至 localStorage
 可以通过 this 访问 store 实例
 
 ```typescript
@@ -58,7 +58,7 @@ getter(key) {
 
 ### include & exclude
 
-定义要持久化的属性名，include 包含、exclude 排除，优先级：exclude > include  
+定义要持久化的属性名，include 包含、exclude 排除，优先级：exclude > include
 默认 include 包含所有，exclude 为空
 
 ```typescript
