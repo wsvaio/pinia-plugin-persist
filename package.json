@@ -42,11 +42,12 @@
   "scripts": {
     "dev": "vite ./playground",
     "build": "tsup",
-    "commit": "czg",
     "prepublishOnly": "pnpm build",
     "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
-    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
+    "lint:check": "oxlint",
+    "lint": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
     "lint:lint-staged": "lint-staged",
     "prepare": "simple-git-hooks"
   },
@@ -54,21 +55,17 @@
     "pinia": ">=2.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.4.3",
-    "@types/node": "^20.10.5",
-    "@vitejs/plugin-vue": "^5.0.0",
-    "@wsvaio/commitlint-config": "^0.0.9",
-    "@wsvaio/eslint-config": "^1.0.4",
-    "czg": "^1.8.0",
-    "eslint": "^8.56.0",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.1.1",
-    "simple-git-hooks": "^2.9.0",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10",
-    "vue": "^3.3.13",
-    "vue-tsc": "^1.8.27"
+    "@types/node": "^25.6.0",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "lint-staged": "^17.0.2",
+    "oxfmt": "^0.48.0",
+    "oxlint": "^1.63.0",
+    "simple-git-hooks": "^2.13.1",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.11",
+    "vue": "^3.5.34",
+    "vue-tsc": "^3.2.8"
   },
   "publishConfig": {
     "access": "public"

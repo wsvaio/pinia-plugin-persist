@@ -18,13 +18,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
           run_install: true
-
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -32,8 +30,6 @@ jobs:
           node-version: 24
           cache: pnpm
           registry-url: "https://registry.npmjs.org"
-
-
 
       # - name: Install dependencies
       #   run: pnpm install
@@ -43,5 +39,3 @@ jobs:
 
       - name: Publish to npm
         run: pnpm publish --access public --no-git-checks
-
-

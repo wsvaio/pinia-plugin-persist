@@ -6,7 +6,5 @@ const main = store();
 <template>
   <h1>Hello World !</h1>
   <h2>{{ main.count }}</h2>
-  <button @click="main.count++">
-    +
-  </button>
+  <button @click="main.count++">+</button>
 </template>
