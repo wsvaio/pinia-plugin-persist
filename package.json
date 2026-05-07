@@ -24,15 +24,12 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
-    "./*": "./*"
+    "./package.json": "./package.json"
   },
-  "main": "index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist"
   ],
@@ -41,7 +38,7 @@
   },
   "scripts": {
     "dev": "vite ./playground",
-    "build": "tsup",
+    "build": "tsdown --clean --dts",
     "prepublishOnly": "pnpm build",
     "lint:check": "oxlint",
     "lint": "oxlint --fix",
@@ -60,7 +57,7 @@
     "oxfmt": "^0.48.0",
     "oxlint": "^1.63.0",
     "simple-git-hooks": "^2.13.1",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.11",
     "vue": "^3.5.34",
@@ -71,5 +68,7 @@
   },
   "dependencies": {
     "@wsvaio/utils": "latest"
-  }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs"
 }
