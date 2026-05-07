@@ -43,7 +43,6 @@
     "dev": "vite ./playground",
     "build": "tsup",
     "prepublishOnly": "pnpm build",
-    "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "lint:check": "oxlint",
     "lint": "oxlint --fix",
     "fmt": "oxfmt",
